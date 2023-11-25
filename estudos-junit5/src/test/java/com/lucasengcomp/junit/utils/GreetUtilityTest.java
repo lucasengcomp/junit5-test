@@ -10,8 +10,20 @@ class GreetUtilityTest {
 
     @Test
     void mustCheckMessageGoodMorning() {
-        String greeting = greet(9);
-        assertEquals("Good morning", greeting);
+        assertEquals("Good morning", greet(0));
+        assertEquals("Good morning", greet(11));
+    }
+
+    @Test
+    void mustCheckMessageGoodAfternoon() {
+        assertEquals("Good afternoon", greet(12));
+        assertEquals("Good afternoon", greet(17));
+    }
+
+    @Test
+    void mustCheckMessageGoodnight() {
+        assertEquals("Good night", greet(18));
+        assertEquals("Good night", greet(23));
     }
 
     @Test
