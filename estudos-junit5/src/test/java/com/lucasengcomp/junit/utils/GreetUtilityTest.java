@@ -1,11 +1,13 @@
 package com.lucasengcomp.junit.utils;
 
+import com.lucasengcomp.junit.CustomDisplayNameGenerator;
+import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 
 import static com.lucasengcomp.junit.utils.GreetUtility.greet;
 import static org.junit.jupiter.api.Assertions.*;
 
-
+@DisplayNameGeneration(CustomDisplayNameGenerator.class)
 class GreetUtilityTest {
 
     @Test

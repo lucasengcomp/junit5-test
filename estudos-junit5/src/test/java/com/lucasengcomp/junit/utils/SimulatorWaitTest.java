@@ -1,12 +1,15 @@
 package com.lucasengcomp.junit.utils;
 
+import com.lucasengcomp.junit.CustomDisplayNameGenerator;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayNameGeneration(CustomDisplayNameGenerator.class)
 class SimulatorWaitTest {
 
     @Test

@@ -1,11 +1,14 @@
 package com.lucasengcomp.junit.utils;
 
+import com.lucasengcomp.junit.CustomDisplayNameGenerator;
+import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@DisplayNameGeneration(CustomDisplayNameGenerator.class)
 class PeopleTest {
 
     @Test

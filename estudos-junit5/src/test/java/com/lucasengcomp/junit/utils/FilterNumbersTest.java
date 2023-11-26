@@ -1,5 +1,7 @@
 package com.lucasengcomp.junit.utils;
 
+import com.lucasengcomp.junit.CustomDisplayNameGenerator;
+import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -8,6 +10,7 @@ import java.util.List;
 import static com.lucasengcomp.junit.utils.FilterNumbers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayNameGeneration(CustomDisplayNameGenerator.class)
 class FilterNumbersTest {
 
     @Test
