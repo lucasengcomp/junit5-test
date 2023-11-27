@@ -1,6 +1,6 @@
 package com.lucasengcomp.junit.blog.storage;
 
-import com.lucasengcomp.junit.blog.modelo.Post;
+import com.lucasengcomp.junit.blog.model.Post;
 
 import java.util.List;
 import java.util.Optional;

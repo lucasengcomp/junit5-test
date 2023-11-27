@@ -1,6 +1,6 @@
 package com.lucasengcomp.junit.blog.utility;
 
-import com.lucasengcomp.junit.blog.negocio.TextProcessor;
+import com.lucasengcomp.junit.blog.business.TextProcessor;
 
 public class TextProcessorSimples implements TextProcessor {
     @Override

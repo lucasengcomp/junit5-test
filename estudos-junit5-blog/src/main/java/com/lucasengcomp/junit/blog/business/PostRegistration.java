@@ -1,10 +1,10 @@
-package com.lucasengcomp.junit.blog.negocio;
+package com.lucasengcomp.junit.blog.business;
 
 import com.lucasengcomp.junit.blog.storage.StoragePost;
 import com.lucasengcomp.junit.blog.exception.PostNotFoundException;
 import com.lucasengcomp.junit.blog.exception.BusinessRuleException;
-import com.lucasengcomp.junit.blog.modelo.Notification;
-import com.lucasengcomp.junit.blog.modelo.Post;
+import com.lucasengcomp.junit.blog.model.Notification;
+import com.lucasengcomp.junit.blog.model.Post;
 import com.lucasengcomp.junit.blog.utility.ConversorSlug;
 
 import java.time.OffsetDateTime;

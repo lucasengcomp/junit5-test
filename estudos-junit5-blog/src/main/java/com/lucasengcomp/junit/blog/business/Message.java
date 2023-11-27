@@ -1,4 +1,4 @@
-package com.lucasengcomp.junit.blog.negocio;
+package com.lucasengcomp.junit.blog.business;
 
 public class Message {
     private String recipient;

@@ -1,4 +1,4 @@
-package com.lucasengcomp.junit.blog.negocio;
+package com.lucasengcomp.junit.blog.business;
 
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.Email;

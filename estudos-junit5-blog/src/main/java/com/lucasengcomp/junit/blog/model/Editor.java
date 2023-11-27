@@ -1,4 +1,4 @@
-package com.lucasengcomp.junit.blog.modelo;
+package com.lucasengcomp.junit.blog.model;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;

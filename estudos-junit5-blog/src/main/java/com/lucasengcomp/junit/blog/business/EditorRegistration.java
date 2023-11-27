@@ -1,9 +1,9 @@
-package com.lucasengcomp.junit.blog.negocio;
+package com.lucasengcomp.junit.blog.business;
 
 import com.lucasengcomp.junit.blog.storage.StorageEditor;
 import com.lucasengcomp.junit.blog.exception.EditorNotFoundException;
 import com.lucasengcomp.junit.blog.exception.BusinessRuleException;
-import com.lucasengcomp.junit.blog.modelo.Editor;
+import com.lucasengcomp.junit.blog.model.Editor;
 
 import java.util.Objects;
 

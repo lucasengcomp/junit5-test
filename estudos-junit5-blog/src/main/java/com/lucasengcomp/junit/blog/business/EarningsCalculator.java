@@ -1,8 +1,8 @@
-package com.lucasengcomp.junit.blog.negocio;
+package com.lucasengcomp.junit.blog.business;
 
-import com.lucasengcomp.junit.blog.modelo.Editor;
-import com.lucasengcomp.junit.blog.modelo.Earnings;
-import com.lucasengcomp.junit.blog.modelo.Post;
+import com.lucasengcomp.junit.blog.model.Editor;
+import com.lucasengcomp.junit.blog.model.Earnings;
+import com.lucasengcomp.junit.blog.model.Post;
 
 import java.math.BigDecimal;
 import java.util.Objects;
