@@ -5,38 +5,38 @@ import java.util.Objects;
 
 public class Earnings {
 
-    private BigDecimal valorPagoPorPalavra;
-    private int quantidadePalavras;
-    private BigDecimal totalGanho;
+    private BigDecimal valuePerWord;
+    private int quantityWord;
+    private BigDecimal totalEarning;
 
-    public Earnings(BigDecimal valorPagoPorPalavra, int quantidadePalavras, BigDecimal totalGanho) {
-        this.valorPagoPorPalavra = valorPagoPorPalavra;
-        this.quantidadePalavras = quantidadePalavras;
-        this.totalGanho = totalGanho;
+    public Earnings(BigDecimal valuePerWord, int quantityWord, BigDecimal totalEarning) {
+        this.valuePerWord = valuePerWord;
+        this.quantityWord = quantityWord;
+        this.totalEarning = totalEarning;
     }
 
-    public BigDecimal getValorPagoPorPalavra() {
-        return valorPagoPorPalavra;
+    public BigDecimal getValuePerWord() {
+        return valuePerWord;
     }
 
-    public void setValorPagoPorPalavra(BigDecimal valorPagoPorPalavra) {
-        this.valorPagoPorPalavra = valorPagoPorPalavra;
+    public void setValuePerWord(BigDecimal valuePerWord) {
+        this.valuePerWord = valuePerWord;
     }
 
-    public int getQuantidadePalavras() {
-        return quantidadePalavras;
+    public int getQuantityWord() {
+        return quantityWord;
     }
 
-    public void setQuantidadePalavras(int quantidadePalavras) {
-        this.quantidadePalavras = quantidadePalavras;
+    public void setQuantityWord(int quantityWord) {
+        this.quantityWord = quantityWord;
     }
 
-    public BigDecimal getTotalGanho() {
-        return totalGanho;
+    public BigDecimal getTotalEarning() {
+        return totalEarning;
     }
 
-    public void setTotalGanho(BigDecimal totalGanho) {
-        this.totalGanho = totalGanho;
+    public void setTotalEarning(BigDecimal totalEarning) {
+        this.totalEarning = totalEarning;
     }
 
     @Override
@@ -44,13 +44,13 @@ public class Earnings {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Earnings earnings = (Earnings) o;
-        return quantidadePalavras == earnings.quantidadePalavras &&
-                Objects.equals(valorPagoPorPalavra, earnings.valorPagoPorPalavra)
-                && Objects.equals(totalGanho, earnings.totalGanho);
+        return quantityWord == earnings.quantityWord
+                && Objects.equals(valuePerWord, earnings.valuePerWord)
+                && Objects.equals(totalEarning, earnings.totalEarning);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(valorPagoPorPalavra, quantidadePalavras, totalGanho);
+        return Objects.hash(valuePerWord, quantityWord, totalEarning);
     }
 }
