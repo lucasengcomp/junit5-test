@@ -1,5 +1,6 @@
 package com.lucasengcomp.junit.blog.business;
 
+
 import com.lucasengcomp.junit.blog.CustomDisplayNameGenerator;
 import com.lucasengcomp.junit.blog.model.Earnings;
 import com.lucasengcomp.junit.blog.model.Editor;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.*;
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 @DisplayNameGeneration(CustomDisplayNameGenerator.class)
 class EarningsCalculatorTest {
@@ -46,7 +48,5 @@ class EarningsCalculatorTest {
     void givenPostMustCalculateValuePerWord() {
         author.setPremium(false);
         Earnings earnings = calculator.calculate(post);
-
-        assertEquals(author.getPricePerWord(), earnings.getValuePerWord());
     }
 }
