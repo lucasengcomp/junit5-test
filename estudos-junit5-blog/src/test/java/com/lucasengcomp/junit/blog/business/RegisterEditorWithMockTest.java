@@ -7,10 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
@@ -22,7 +19,8 @@ import static org.mockito.Mockito.*;
 @DisplayNameGeneration(CustomDisplayNameGenerator.class)
 class RegisterEditorWithMockTest {
 
-    Editor editor;
+    @Spy
+    Editor editor = new Editor(null, "Lucas", "lucas@email.com", BigDecimal.TEN, true);
 
     @Captor
     ArgumentCaptor<Message> messageArgumentCaptor;
@@ -39,8 +37,6 @@ class RegisterEditorWithMockTest {
 
     @BeforeEach
     void setUp() {
-        editor = new Editor(null, "Lucas", "lucas@email.com", BigDecimal.TEN, true);
-
         when(storageEditor.save(editor))
                 .thenReturn(new Editor(1L, "Lucas", "lucas@email.com", BigDecimal.TEN, true));
         EmailSendingManager emailSendingManager = mock(EmailSendingManager.class);
@@ -74,5 +70,11 @@ class RegisterEditorWithMockTest {
         verify(emailSendingManager).sendEmail(messageArgumentCaptor.capture());
         Message message = messageArgumentCaptor.getValue();
         assertEquals(savedEditor.getEmail(), message.getRecipient());
+    }
+
+    @Test
+    void givenAnEditorValidWhenRegisterThenMustVerifyEmail() {
+        editorRegistration.create(editor);
+        verify(editor, atLeast(1)).getEmail();
     }
 }
