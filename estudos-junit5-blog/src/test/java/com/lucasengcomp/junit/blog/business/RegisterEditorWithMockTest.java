@@ -16,8 +16,7 @@ import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayNameGeneration(CustomDisplayNameGenerator.class)
@@ -51,5 +50,11 @@ class RegisterEditorWithMockTest {
     void givenAnEditorValidWhenCreateThenMustReturnARegistrationId() {
         Editor editorSaved = editorRegistration.create(editor);
         assertEquals(1L, editorSaved.getId());
+    }
+
+    @Test
+    void GivenAValidEditorWhenCreateShouldCallSaveFromStorage() {
+        storageEditor.save(editor);
+        verify(storageEditor, times(1)).save(eq(editor));
     }
 }
