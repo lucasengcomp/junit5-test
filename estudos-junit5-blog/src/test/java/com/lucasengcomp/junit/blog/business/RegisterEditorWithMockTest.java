@@ -9,13 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,12 +36,9 @@ class RegisterEditorWithMockTest {
     void setUp() {
         editor = new Editor(null, "Lucas", "lucas@email.com", BigDecimal.TEN, true);
 
-        when(storageEditor.save(any(Editor.class)))
-                .thenAnswer(invocation -> {
-                    Editor editorParam = invocation.getArgument(0, Editor.class);
-                    editorParam.setId(1L);
-                    return editorParam;
-                });
+        when(storageEditor.save(editor))
+                .thenReturn(new Editor(1L, "Lucas", "lucas@email.com", BigDecimal.TEN, true));
+        EmailSendingManager emailSendingManager = mock(EmailSendingManager.class);
     }
 
     @Test
