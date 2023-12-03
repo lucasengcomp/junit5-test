@@ -48,7 +48,7 @@ class RegisterEditorWithMockTest {
     }
 
     @Test
-    void GivenAValidEditorWhenCreateShouldCallSaveFromStorage() {
+    void givenAValidEditorWhenCreateShouldCallSaveFromStorage() {
         storageEditor.save(editor);
         verify(storageEditor, times(1)).save(eq(editor));
     }
