@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -21,6 +23,9 @@ import static org.mockito.Mockito.*;
 class RegisterEditorWithMockTest {
 
     Editor editor;
+
+    @Captor
+    ArgumentCaptor<Message> messageArgumentCaptor;
 
     @Mock
     StorageEditor storageEditor;
@@ -58,7 +63,16 @@ class RegisterEditorWithMockTest {
         when(storageEditor.save(editor)).thenThrow(new RuntimeException());
         assertAll("Email sending should not be allowed",
                 () -> assertThrows(RuntimeException.class, () -> editorRegistration.create(editor)),
-                () -> verify(emailSendingManager, never()).enviarEmail(any())
+                () -> verify(emailSendingManager, never()).sendEmail(any())
         );
+    }
+
+    @Test
+    void givenAnEditorValidWhenRegisterThenMustSendEmailWithDestinationToEditor() {
+        messageArgumentCaptor = ArgumentCaptor.forClass(Message.class);
+        Editor savedEditor = editorRegistration.create(editor);
+        verify(emailSendingManager).sendEmail(messageArgumentCaptor.capture());
+        Message message = messageArgumentCaptor.getValue();
+        assertEquals(savedEditor.getEmail(), message.getRecipient());
     }
 }
