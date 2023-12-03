@@ -13,7 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -51,5 +51,14 @@ class RegisterEditorWithMockTest {
     void givenAValidEditorWhenCreateShouldCallSaveFromStorage() {
         storageEditor.save(editor);
         verify(storageEditor, times(1)).save(eq(editor));
+    }
+
+    @Test
+    void givenAnEditorValidWhenCreateAndLaunchExceptionWhenSavingThenMustNotSendEmail() {
+        when(storageEditor.save(editor)).thenThrow(new RuntimeException());
+        assertAll("Email sending should not be allowed",
+                () -> assertThrows(RuntimeException.class, () -> editorRegistration.create(editor)),
+                () -> verify(emailSendingManager, never()).enviarEmail(any())
+        );
     }
 }
