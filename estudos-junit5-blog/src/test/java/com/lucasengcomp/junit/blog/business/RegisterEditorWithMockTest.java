@@ -38,7 +38,11 @@ class RegisterEditorWithMockTest {
         editor = new Editor(null, "Lucas", "lucas@email.com", BigDecimal.TEN, true);
 
         when(storageEditor.save(editor))
-                .thenReturn(new Editor(1L, "Lucas", "lucas@email.com", BigDecimal.TEN, true));
+                .thenAnswer(invocation -> {
+                    Editor editorParam = invocation.getArgument(0, Editor.class);
+                    editorParam.setId(1L);
+                    return editorParam;
+                });
     }
 
     @Test
