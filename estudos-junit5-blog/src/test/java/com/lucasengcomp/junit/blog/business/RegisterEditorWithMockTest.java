@@ -2,6 +2,7 @@ package com.lucasengcomp.junit.blog.business;
 
 import com.lucasengcomp.junit.blog.CustomDisplayNameGenerator;
 import com.lucasengcomp.junit.blog.exception.BusinessRuleException;
+import com.lucasengcomp.junit.blog.exception.EditorNotFoundException;
 import com.lucasengcomp.junit.blog.model.Editor;
 import com.lucasengcomp.junit.blog.storage.StorageEditor;
 import org.junit.jupiter.api.BeforeEach;
@@ -107,10 +108,49 @@ class RegisterEditorWithMockTest {
     class RegistrationWithEditorNull {
 
         @Test
-        void givenUmEditorNullWhenCadastrarEntaoDeveLancarException() {
+        void givenUmEditorNullWhenRegisterThenMustThrowsNullPointerException() {
             assertThrows(NullPointerException.class, () -> editorRegistration.create(null));
             verify(storageEditor, never()).save(any());
             verify(emailSendingManager, never()).sendEmail(any());
+        }
+    }
+
+    @Nested
+    class EditionWithValidEditor {
+        @Spy
+        Editor editor = new Editor(1L, "Lucas", "lucas@email.com", BigDecimal.TEN, true);
+
+        @BeforeEach
+        void setUp() {
+            when(storageEditor.save(editor)).thenAnswer(invocation -> invocation.getArgument(0, Editor.class));
+            when(storageEditor.findById(1L)).thenReturn(Optional.of(editor));
+        }
+
+        @Test
+        void givenAnEditorValidWhenEditThenMustChangeSavedEditor() {
+            Editor editorUpdated = new Editor(1L, "Lucas Galvao", "lucasgalvao@email.com", BigDecimal.ZERO, false);
+            editorRegistration.edit(editorUpdated);
+            verify(editor, times(1)).updateWithData(editorUpdated);
+            InOrder inOrder = inOrder(editor, storageEditor);
+            inOrder.verify(editor).updateWithData(editorUpdated);
+            inOrder.verify(storageEditor).save(editor);
+        }
+    }
+
+    @Nested
+    class EditionWithNonExistentEditor {
+
+        Editor editor = new Editor(999L, "Lucas", "lucas@email.com", BigDecimal.TEN, true);
+
+        @BeforeEach
+        void setUp() {
+            when(storageEditor.findById(999L)).thenReturn(Optional.empty());
+        }
+
+        @Test
+        void givenAnEditorThatDoesExistWhenEditingThenShouldNotThrowEditorNotFoundException() {
+            assertThrows(EditorNotFoundException.class, () -> editorRegistration.edit(editor));
+            verify(storageEditor, never()).save(any(Editor.class));
         }
     }
 }
