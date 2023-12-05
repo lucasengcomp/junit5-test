@@ -64,6 +64,6 @@ public class EditorRegistration {
 
     private void sendRegistrationEmail(Editor editor) {
         Message message = new Message(editor.getEmail(), "New registration", "Your registration has been completed");
-        emailSendingManager.enviarEmail(message);
+        emailSendingManager.sendEmail(message);
     }
 }
