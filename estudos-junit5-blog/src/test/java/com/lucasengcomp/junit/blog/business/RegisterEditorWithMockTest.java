@@ -1,6 +1,7 @@
 package com.lucasengcomp.junit.blog.business;
 
 import com.lucasengcomp.junit.blog.CustomDisplayNameGenerator;
+import com.lucasengcomp.junit.blog.exception.BusinessRuleException;
 import com.lucasengcomp.junit.blog.model.Editor;
 import com.lucasengcomp.junit.blog.storage.StorageEditor;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +12,7 @@ import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -76,5 +78,16 @@ class RegisterEditorWithMockTest {
     void givenAnEditorValidWhenRegisterThenMustVerifyEmail() {
         editorRegistration.create(editor);
         verify(editor, atLeast(1)).getEmail();
+    }
+
+    @Test
+    void givenAnEditorWithExistingEmailWhenRegisterThenMustThrowException() {
+        when(storageEditor.findByEmail("lucas@email.com"))
+                .thenReturn(Optional.empty())
+                .thenReturn(Optional.of(editor));
+
+        Editor newEditorWithEmail = new Editor(null, "Lucas", "lucas@email.com", BigDecimal.TEN, true);
+        editorRegistration.create(editor);
+        assertThrows(BusinessRuleException.class, () -> editorRegistration.create(newEditorWithEmail));
     }
 }
