@@ -90,4 +90,12 @@ class RegisterEditorWithMockTest {
         editorRegistration.create(editor);
         assertThrows(BusinessRuleException.class, () -> editorRegistration.create(newEditorWithEmail));
     }
+
+    @Test
+    void givenAnEditorValidWhenRegisterThenMustSendEmailAfterSave() {
+        editorRegistration.create(editor);
+        InOrder inOrder = inOrder(storageEditor, emailSendingManager);
+        inOrder.verify(storageEditor, times(1)).save(editor);
+        inOrder.verify(emailSendingManager, times(1)).sendEmail(any(Message.class));
+    }
 }
