@@ -25,7 +25,7 @@ import static org.mockito.Mockito.*;
 class RegisterEditorWithMockTest {
 
     @Spy
-    Editor editor = editorIdNull();
+    Editor editor = editorIdNull().build();
 
     @Captor
     ArgumentCaptor<Message> messageArgumentCaptor;
@@ -45,7 +45,7 @@ class RegisterEditorWithMockTest {
         @BeforeEach
         void setUp() {
             when(storageEditor.save(editor))
-                    .thenReturn(editorWithExistentId());
+                    .thenReturn(editorWithExistentId().build());
             mock(EmailSendingManager.class);
         }
 
@@ -91,7 +91,7 @@ class RegisterEditorWithMockTest {
                     .thenReturn(Optional.empty())
                     .thenReturn(Optional.of(editor));
 
-            Editor newEditorWithEmail = editorIdNull();
+            Editor newEditorWithEmail = editorIdNull().build();
             editorRegistration.create(editor);
             assertThrows(BusinessRuleException.class, () -> editorRegistration.create(newEditorWithEmail));
         }
@@ -119,7 +119,7 @@ class RegisterEditorWithMockTest {
     @Nested
     class EditionWithValidEditor {
         @Spy
-        Editor editor = editorWithExistentId();
+        Editor editor = editorWithExistentId().build();
 
         @BeforeEach
         void setUp() {
@@ -129,7 +129,9 @@ class RegisterEditorWithMockTest {
 
         @Test
         void givenAnEditorValidWhenEditThenMustChangeSavedEditor() {
-            Editor editorUpdated = editorWithExistentId();
+            Editor editorUpdated = editorWithExistentId()
+                    .withEmail("lucas@email.com")
+                    .withName("LUcas").build();
             editorRegistration.edit(editorUpdated);
             verify(editor, times(1)).updateWithData(editorUpdated);
             InOrder inOrder = inOrder(editor, storageEditor);
@@ -141,7 +143,7 @@ class RegisterEditorWithMockTest {
     @Nested
     class EditionWithNonExistentEditor {
 
-        Editor editor = editorWithInexistentId();
+        Editor editor = editorWithInexistentId().build();
 
         @BeforeEach
         void setUp() {

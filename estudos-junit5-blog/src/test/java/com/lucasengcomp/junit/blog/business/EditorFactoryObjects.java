@@ -6,15 +6,19 @@ import java.math.BigDecimal;
 
 public class EditorFactoryObjects {
 
-    public static Editor editorIdNull() {
-        return new Editor(null, "Lucas", "lucas@email.com", BigDecimal.TEN, true);
+    public static Editor.Builder editorIdNull() {
+        return Editor.builder()
+                .withName("Lucas")
+                .withEmail("lucas@email.com")
+                .withPaymentValueWithWord(BigDecimal.TEN)
+                .withPremium(true);
     }
 
-    public static Editor editorWithExistentId() {
-        return new Editor(1L, "Lucas", "lucas@email.com", BigDecimal.TEN, true);
+    public static Editor.Builder editorWithExistentId() {
+        return editorIdNull().withId(1L);
     }
 
-    public static Editor editorWithInexistentId() {
-        return new Editor(999L, "Lucas", "lucas@email.com", BigDecimal.TEN, true);
+    public static Editor.Builder editorWithInexistentId() {
+        return editorIdNull().withId(999L);
     }
 }
