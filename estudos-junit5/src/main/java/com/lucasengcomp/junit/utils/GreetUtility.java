@@ -1,5 +1,7 @@
 package com.lucasengcomp.junit.utils;
 
+import static com.lucasengcomp.junit.utils.MessagesUtil.*;
+
 public class GreetUtility {
 
     private GreetUtility() {
@@ -7,7 +9,7 @@ public class GreetUtility {
 
     public static String greet(int hour) {
         if (!isValidHour(hour)) {
-            throw new IllegalArgumentException("Invalid hour!");
+            throw new IllegalArgumentException(INVALID_HOUR);
         }
         return getGreetingForHour(hour);
     }
@@ -17,12 +19,15 @@ public class GreetUtility {
     }
 
     private static String getGreetingForHour(int hour) {
+        if (hour <= 4) {
+            return GOOD_DAWN;
+        }
         if (hour <= 11) {
-            return "Good morning";
+            return GOOD_M0RNING;
         }
         if (hour <= 17) {
-            return "Good afternoon";
+            return GOOD_AFTERNOOM;
         }
-        return "Good night";
+        return GOOD_NIGHT;
     }
 }

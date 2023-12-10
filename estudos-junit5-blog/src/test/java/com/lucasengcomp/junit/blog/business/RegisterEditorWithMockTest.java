@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import static com.lucasengcomp.junit.blog.business.EditorFactoryObjects.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -24,7 +25,7 @@ import static org.mockito.Mockito.*;
 class RegisterEditorWithMockTest {
 
     @Spy
-    Editor editor = new Editor(null, "Lucas", "lucas@email.com", BigDecimal.TEN, true);
+    Editor editor = editorIdNull().build();
 
     @Captor
     ArgumentCaptor<Message> messageArgumentCaptor;
@@ -44,7 +45,7 @@ class RegisterEditorWithMockTest {
         @BeforeEach
         void setUp() {
             when(storageEditor.save(editor))
-                    .thenReturn(new Editor(1L, "Lucas", "lucas@email.com", BigDecimal.TEN, true));
+                    .thenReturn(editorWithExistentId().build());
             mock(EmailSendingManager.class);
         }
 
@@ -90,7 +91,7 @@ class RegisterEditorWithMockTest {
                     .thenReturn(Optional.empty())
                     .thenReturn(Optional.of(editor));
 
-            Editor newEditorWithEmail = new Editor(null, "Lucas", "lucas@email.com", BigDecimal.TEN, true);
+            Editor newEditorWithEmail = editorIdNull().build();
             editorRegistration.create(editor);
             assertThrows(BusinessRuleException.class, () -> editorRegistration.create(newEditorWithEmail));
         }
@@ -118,7 +119,7 @@ class RegisterEditorWithMockTest {
     @Nested
     class EditionWithValidEditor {
         @Spy
-        Editor editor = new Editor(1L, "Lucas", "lucas@email.com", BigDecimal.TEN, true);
+        Editor editor = editorWithExistentId().build();
 
         @BeforeEach
         void setUp() {
@@ -128,7 +129,9 @@ class RegisterEditorWithMockTest {
 
         @Test
         void givenAnEditorValidWhenEditThenMustChangeSavedEditor() {
-            Editor editorUpdated = new Editor(1L, "Lucas Galvao", "lucasgalvao@email.com", BigDecimal.ZERO, false);
+            Editor editorUpdated = editorWithExistentId()
+                    .withEmail("lucas@email.com")
+                    .withName("LUcas").build();
             editorRegistration.edit(editorUpdated);
             verify(editor, times(1)).updateWithData(editorUpdated);
             InOrder inOrder = inOrder(editor, storageEditor);
@@ -140,7 +143,7 @@ class RegisterEditorWithMockTest {
     @Nested
     class EditionWithNonExistentEditor {
 
-        Editor editor = new Editor(999L, "Lucas", "lucas@email.com", BigDecimal.TEN, true);
+        Editor editor = editorWithInexistentId().build();
 
         @BeforeEach
         void setUp() {
